@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chris Salazar — Computer Science ePortfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1115;
+    --panel:#161A21;
+    --panel-2:#1C212A;
+    --line:#2A303B;
+    --text:#E7E5DF;
+    --text-dim:#9BA3AF;
+    --accent:#6FA8FF;
+    --accent-dim:#3D5A85;
+    --amber:#E8A33D;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Source Sans 3', system-ui, sans-serif;
+    line-height:1.6;
+  }
+  .mono{font-family:'JetBrains Mono', ui-monospace, monospace;}
+  a{color:var(--accent);}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  header.site{
+    position:sticky;top:0;z-index:10;
+    background:rgba(15,17,21,0.9);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  header.site .wrap{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px 24px;
+  }
+  header.site .brand{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--text);}
+  header.site .brand span{color:var(--accent);}
+  header.site nav a{
+    color:var(--text-dim);text-decoration:none;font-size:14px;margin-left:22px;
+    font-family:'JetBrains Mono',monospace;
+  }
+  header.site nav a:hover{color:var(--accent);}
+
+  .hero{padding:88px 0 64px;border-bottom:1px solid var(--line);}
+  .hero .eyebrow{
+    font-family:'JetBrains Mono',monospace;color:var(--amber);
+    font-size:13px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:44px;line-height:1.15;margin:0 0 16px;font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  .hero p.lede{color:var(--text-dim);font-size:18px;max-width:640px;margin:0 0 28px;}
+  .hero .actions a{
+    display:inline-block;margin-right:14px;padding:11px 20px;
+    border-radius:6px;text-decoration:none;font-size:14px;font-family:'JetBrains Mono',monospace;
+  }
+  .hero .actions .primary{background:var(--accent);color:#0F1115;font-weight:700;}
+  .hero .actions .secondary{border:1px solid var(--line);color:var(--text);}
+
+  section{padding:64px 0;border-bottom:1px solid var(--line);}
+  section h2{
+    font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--text-dim);margin:0 0 8px;
+  }
+  section h3.title{font-size:28px;margin:0 0 20px;}
+  section p{color:var(--text-dim);max-width:680px;}
+
+  /* Signature element: the enhancement path */
+  .path{
+    display:flex;flex-direction:column;gap:0;margin-top:36px;
+  }
+  .path-node{
+    display:grid;grid-template-columns:64px 1fr;gap:20px;position:relative;
+  }
+  .path-node .rail{
+    position:relative;display:flex;justify-content:center;
+  }
+  .path-node .rail::before{
+    content:'';position:absolute;top:0;bottom:-32px;left:50%;width:1px;
+    background:var(--line);transform:translateX(-50%);
+  }
+  .path-node:last-child .rail::before{display:none;}
+  .path-node .dot{
+    width:12px;height:12px;border-radius:50%;background:var(--accent);
+    margin-top:6px;z-index:1;box-shadow:0 0 0 4px var(--bg);
+  }
+  .path-node.origin .dot{background:var(--text-dim);}
+  .path-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:22px 24px;margin-bottom:32px;
+  }
+  .path-card .cat{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);
+    text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;
+  }
+  .path-card h4{margin:0 0 10px;font-size:19px;}
+  .path-card p{margin:0 0 16px;color:var(--text-dim);font-size:15px;}
+  .path-card .links a{
+    font-family:'JetBrains Mono',monospace;font-size:13px;text-decoration:none;
+    margin-right:20px;color:var(--accent);
+  }
+  .path-card .links a::before{content:'→ ';}
+  .path-card.origin{background:transparent;}
+  .path-card.origin p{margin:0;}
+
+  .outcomes{margin-top:28px;}
+  .outcomes ul{list-style:none;padding:0;margin:0;}
+  .outcomes li{
+    padding:14px 0;border-top:1px solid var(--line);color:var(--text-dim);font-size:15px;
+  }
+  .outcomes li:first-child{border-top:none;}
+  .outcomes li b{color:var(--text);font-weight:600;}
+
+  footer{padding:40px 0;text-align:center;}
+  footer p{color:var(--text-dim);font-size:13px;font-family:'JetBrains Mono',monospace;}
+  footer a{color:var(--text-dim);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="brand">salazarchris013<span>.github.io</span></div>
+    <nav>
+      <a href="#assessment">Self-Assessment</a>
+      <a href="#artifacts">Artifacts</a>
+      <a href="#outcomes">Outcomes</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">CS 499 — Computer Science Capstone</div>
+    <h1>Chris Salazar</h1>
+    <p class="lede">A working Android inventory application, rebuilt across three enhancement passes — software design, algorithms &amp; data structures, and databases — to demonstrate practices used in production software.</p>
+    <div class="actions">
+      <a class="primary" href="assets/pdf/professional-self-assessment.pdf">Read the Self-Assessment</a>
+      <a class="secondary" href="#artifacts">View the Artifacts ↓</a>
+    </div>
+  </div>
+</section>
+
+<section id="assessment">
+  <div class="wrap">
+    <h2>Introduction</h2>
+    <h3 class="title">Professional Self-Assessment</h3>
+    <p>A reflection on three years in the Computer Science program, what the capstone process revealed, and how the enhancements below fit together as one body of work.</p>
+    <div class="path-card" style="margin-top:24px;">
+      <div class="links"><a href="assets/pdf/professional-self-assessment.pdf">Open PDF</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="artifacts">
+  <div class="wrap">
+    <h2>The Artifacts</h2>
+    <h3 class="title">One application, three enhancement passes</h3>
+    <p>Each artifact below is a version of the same CS 360 Android inventory tracker, enhanced against a different capstone category. The original, unmodified project anchors the sequence.</p>
+
+    <div class="path">
+      <div class="path-node origin">
+        <div class="rail"><div class="dot"></div></div>
+        <div class="path-card origin">
+          <div class="cat">Starting Point</div>
+          <p>CS 360 Inventory Tracker — the original Android application, unmodified, submitted in Mobile Architecture &amp; Programming.</p>
+        </div>
+      </div>
+
+      <div class="path-node">
+        <div class="rail"><div class="dot"></div></div>
+        <div class="path-card">
+          <div class="cat">Enhancement One — Software Design &amp; Engineering</div>
+          <h4>Repository pattern &amp; input validation</h4>
+          <p>Pulled database access out of the Activity classes into a dedicated InventoryRepository, and consolidated input validation into a reusable InputValidator, so the code is organized around single responsibilities.</p>
+          <div class="links">
+            <a href="assets/pdf/m3-software-design.pdf">Narrative</a>
+            <a href="assets/code/m3-software-design-source.zip">Source code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="path-node">
+        <div class="rail"><div class="dot"></div></div>
+        <div class="path-card">
+          <div class="cat">Enhancement Two — Algorithms &amp; Data Structures</div>
+          <h4>In-memory model, efficient sort &amp; search</h4>
+          <p>Loaded inventory into an in-memory list of InventoryItem objects instead of querying the database on every interaction, with live sorting and searching kept in sync with storage on every edit.</p>
+          <div class="links">
+            <a href="assets/pdf/m4-algorithms.pdf">Narrative</a>
+            <a href="assets/code/m4-algorithms-source.zip">Source code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="path-node">
+        <div class="rail"><div class="dot"></div></div>
+        <div class="path-card">
+          <div class="cat">Enhancement Three — Databases</div>
+          <h4>Normalized schema &amp; join-based queries</h4>
+          <p>Replaced a single flat table with related categories, suppliers, and item_transactions tables joined by foreign keys, plus a non-destructive schema upgrade path and CSV import.</p>
+          <div class="links">
+            <a href="assets/pdf/m5-databases.pdf">Narrative</a>
+            <a href="assets/code/m5-databases-source.zip">Source code</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="outcomes">
+  <div class="wrap">
+    <h2>Alignment</h2>
+    <h3 class="title">Course Outcomes</h3>
+    <div class="outcomes">
+      <ul>
+        <li><b>Collaborative environments —</b> code-review narratives written for a technical audience evaluating the work for the first time.</li>
+        <li><b>Professional communication —</b> narratives and this self-assessment adapted for a hiring-manager audience, not an instructor.</li>
+        <li><b>Algorithmic principles —</b> in-memory data structures and search/sort design in the Algorithms &amp; Data Structures enhancement.</li>
+        <li><b>Well-founded technical practice —</b> the repository pattern, input validation, and normalized schema across all three enhancements.</li>
+        <li><b>Security mindset —</b> input validated at the boundary, non-destructive schema migrations, and join-based queries over ad hoc lookups.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Chris Salazar · <a href="https://github.com/salazarchris013">github.com/salazarchris013</a></p>
+</footer>
+
+</body>
+</html>
