@@ -1,0 +1,242 @@
+package com.example.csalazarcs360m5projecttwo;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.TextView;
+
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+public class database extends AppCompatActivity {
+
+    InventoryRepository repository;
+    EditText itemName, itemQty, itemDesc, itemCategory, itemSupplier, searchBox;
+    Button addItemBtn, smsBtn, sortNameBtn, sortQtyBtn, importBtn;
+    GridLayout inventoryGrid;
+
+    private static final int LOW_STOCK_THRESHOLD = 10;
+
+    // In-memory inventory list, used for sorting and searching
+    private List<InventoryItem> masterList = new ArrayList<>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_database);
+
+        repository = new InventoryRepository(this);
+        itemName = findViewById(R.id.itemName);
+        itemQty = findViewById(R.id.itemQty);
+        itemDesc = findViewById(R.id.itemDesc);
+        itemCategory = findViewById(R.id.itemCategory);
+        itemSupplier = findViewById(R.id.itemSupplier);
+        addItemBtn = findViewById(R.id.addItemBtn);
+        smsBtn = findViewById(R.id.smsBtn);
+        inventoryGrid = findViewById(R.id.inventoryGrid);
+        searchBox = findViewById(R.id.searchBox);
+        sortNameBtn = findViewById(R.id.sortNameBtn);
+        sortQtyBtn = findViewById(R.id.sortQtyBtn);
+        importBtn = findViewById(R.id.importBtn);
+
+        // Import sample data from res/raw/sample_inventory.csv, creating categories and suppliers as needed
+        importBtn.setOnClickListener(v -> {
+            int count = repository.importSampleData(this);
+            Toast.makeText(this, "Imported " + count + " items", Toast.LENGTH_SHORT).show();
+            loadInventory();
+        });
+
+        // Add item button
+        addItemBtn.setOnClickListener(v -> {
+            String name = itemName.getText().toString().trim();
+            String desc = itemDesc.getText().toString().trim();
+            String qtyStr = itemQty.getText().toString().trim();
+            String categoryText = itemCategory.getText().toString().trim();
+            String supplierText = itemSupplier.getText().toString().trim();
+
+            InputValidator.ValidationResult result = InputValidator.validateItem(name, qtyStr, desc);
+            if (!result.isValid()) {
+                Toast.makeText(this, result.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Category and supplier are optional; save them and link the item if either was entered
+            repository.addItemWithCategoryAndSupplier(name, Integer.parseInt(qtyStr), desc, categoryText, supplierText);
+
+            // Clear input fields after adding
+            itemName.setText("");
+            itemQty.setText("");
+            itemDesc.setText("");
+            itemCategory.setText("");
+            itemSupplier.setText("");
+            loadInventory();
+        });
+
+        // SMS Button navigation
+        smsBtn.setOnClickListener(v ->
+                startActivity(new Intent(this, sms.class))
+        );
+
+        // Sort alphabetically by item name
+        sortNameBtn.setOnClickListener(v -> {
+            masterList.sort(Comparator.comparing(InventoryItem::getName, String.CASE_INSENSITIVE_ORDER));
+            applyFilterAndRender();
+        });
+
+        // Sort by quantity, lowest first, so low-stock items surface quickly
+        sortQtyBtn.setOnClickListener(v -> {
+            masterList.sort(Comparator.comparingInt(InventoryItem::getQuantity));
+            applyFilterAndRender();
+        });
+
+        // Live search as the user types
+        searchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                applyFilterAndRender();
+            }
+        });
+
+        loadInventory();
+    }
+
+    // Helper to control column layout
+    private GridLayout.LayoutParams makeParams(int col, float weight) {
+        GridLayout.LayoutParams params = new GridLayout.LayoutParams(
+                GridLayout.spec(GridLayout.UNDEFINED, 1),
+                GridLayout.spec(col, 1, weight)
+        );
+        params.width = 0;
+        params.setMargins(4, 4, 4, 4);
+        return params;
+    }
+
+    // Reloads inventory from the database into masterList, joined with category/supplier names
+    private void loadInventory() {
+        masterList = repository.getAllItemsWithDetailsAsList();
+        applyFilterAndRender();
+    }
+
+    // Filters masterList by the search box text, then renders
+    private void applyFilterAndRender() {
+        String query = searchBox.getText().toString().trim().toLowerCase();
+        List<InventoryItem> displayed = new ArrayList<>();
+        for (InventoryItem item : masterList) {
+            if (query.isEmpty() || item.getName().toLowerCase().contains(query)) {
+                displayed.add(item);
+            }
+        }
+        renderGrid(displayed);
+    }
+
+    // Builds the grid from an already-loaded list of items
+    // Category and Supplier columns added for Milestone Four so the table relationships are visible on screen
+    private void renderGrid(List<InventoryItem> items) {
+        inventoryGrid.removeAllViews();
+        inventoryGrid.setColumnCount(6);
+
+        String[] headers = {"Item", "Category", "Supplier", "Qty", "Description", "Delete"};
+        float[] weights = {2f, 1.5f, 1.5f, 1f, 2.5f, 1f};
+
+        // Header row
+        for (int i = 0; i < headers.length; i++) {
+            TextView h = new TextView(this);
+            h.setText(headers[i]);
+            h.setTypeface(null, android.graphics.Typeface.BOLD);
+            h.setLayoutParams(makeParams(i, weights[i]));
+            inventoryGrid.addView(h);
+        }
+
+        for (InventoryItem item : items) {
+            int id = item.getId();
+            String name = item.getName();
+            int qty = item.getQuantity();
+            String desc = item.getDescription();
+
+            // Item name
+            TextView tName = new TextView(this);
+            tName.setText(name);
+            tName.setLayoutParams(makeParams(0, weights[0]));
+
+            // Category, from the categories table via the join query, blank if unassigned
+            TextView tCategory = new TextView(this);
+            tCategory.setText(item.getCategoryName() != null ? item.getCategoryName() : "-");
+            tCategory.setLayoutParams(makeParams(1, weights[1]));
+
+            // Supplier, from the suppliers table via the join query, blank if unassigned
+            TextView tSupplier = new TextView(this);
+            tSupplier.setText(item.getSupplierName() != null ? item.getSupplierName() : "-");
+            tSupplier.setLayoutParams(makeParams(2, weights[2]));
+
+            // Quantity which is editable
+            EditText tQty = new EditText(this);
+            tQty.setInputType(InputType.TYPE_CLASS_NUMBER);
+            tQty.setText(String.valueOf(qty));
+            tQty.setLayoutParams(makeParams(3, weights[3]));
+            tQty.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) return;
+
+                String qtyText = tQty.getText().toString();
+                InputValidator.ValidationResult result = InputValidator.validateQuantity(qtyText);
+                if (!result.isValid()) {
+                    Toast.makeText(this, result.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    // Revert to last valid quantity if input is invalid
+                    tQty.setText(String.valueOf(qty));
+                    return;
+                }
+
+                int newQty = Integer.parseInt(qtyText.trim());
+                repository.updateQuantity(id, newQty);
+                item.setQuantity(newQty);
+
+                // Alert when quantity is at or below the low-stock threshold
+                if (repository.isBelowThreshold(newQty, LOW_STOCK_THRESHOLD)) {
+                    String phone = sms.getSavedPhoneNumber(this);
+                    if (!phone.isEmpty())
+                        sms.sendSms(this, phone,
+                                "Low Inventory Alert: \"" + name + "\" has reached " + newQty + " left!");
+                }
+            });
+
+            // Description which is editable
+            EditText tDesc = new EditText(this);
+            tDesc.setText(desc != null ? desc : "");
+            tDesc.setLayoutParams(makeParams(4, weights[4]));
+            tDesc.setOnFocusChangeListener((v, hasFocus) -> {
+                if (!hasFocus) {
+                    repository.updateDescription(id, tDesc.getText().toString());
+                    item.setDescription(tDesc.getText().toString());
+                }
+            });
+
+            // Delete Button
+            Button delBtn = new Button(this);
+            delBtn.setText("X");
+            delBtn.setLayoutParams(makeParams(5, weights[5]));
+            delBtn.setOnClickListener(v -> { repository.deleteItem(id); loadInventory(); });
+
+            inventoryGrid.addView(tName);
+            inventoryGrid.addView(tCategory);
+            inventoryGrid.addView(tSupplier);
+            inventoryGrid.addView(tQty);
+            inventoryGrid.addView(tDesc);
+            inventoryGrid.addView(delBtn);
+        }
+    }
+}

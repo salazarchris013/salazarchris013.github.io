@@ -1,0 +1,11 @@
+name,quantity,description,category,supplier
+Copy Paper,100,Printer paper,Office Supplies,Staples
+Pens,50,Blue ink pens,Office Supplies,Staples
+Stapler,10,Office stapler,Office Supplies,Staples
+Notebook,25,Lined notebook,Office Supplies,Staples
+Laptop,8,Office laptop,Electronics,Walmart
+Mouse,20,Wireless mouse,Electronics,Walmart
+Keyboard,15,USB keyboard,Electronics,Walmart
+Safety Glasses,12,Protective glasses,Safety,Walmart
+First Aid Kit,5,Basic first aid kit,Safety,Walmart
+Shipping Box,40,Cardboard box,Shipping,Walmart
