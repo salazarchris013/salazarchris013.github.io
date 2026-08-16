@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Phone number input -->
+    <EditText
+        android:id="@+id/phoneInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter phone number"
+        android:inputType="phone"/>
+
+    <!-- Save phone number button -->
+    <Button
+        android:id="@+id/savePhoneBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Phone Number"
+        android:layout_marginTop="12dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Permission status display -->
+    <TextView
+        android:id="@+id/permissionStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Permission Status: Unknown"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Request SMS Permission button -->
+    <Button
+        android:id="@+id/requestPermissionBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Request SMS Permission"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Test SMS button -->
+    <Button
+        android:id="@+id/testSmsBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Test SMS"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Back to Inventory button -->
+    <Button
+        android:id="@+id/backToInventoryBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back to Inventory"
+        android:layout_marginTop="12dp"/>
+
+</LinearLayout>
