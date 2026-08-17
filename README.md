@@ -20,6 +20,7 @@ https://youtu.be/QhCGARdW1TY
 
 # Algorithms and Data Structures
 Inventory Management App
+[View original code](https://github.com/salazarchris013/salazarchris013.github.io/tree/main/Algorithms%20and%20Data%20Structures%20-%20Inventory%20Tracker/app-original/src)
 
 This enhancement involved rethinking the way that the app works with its inventory data. Rather than accessing the database each time the screen was changed, I created a class for each inventory item and stored these in a list during the app's life cycle making it possible to filter inventory logs without repeated database accesses. This met the course outcomes by selecting an appropriate data organization and keeping data retrieval separate from the way the information is displayed on the screen. Being able to filter items, along with instant search, required very little additional work because organizing the inventory this way made those features much easier to implement. One challenge was that every edit had to update both the list and the database, or the app could display information that did not match what was actually saved. Finding and fixing this issue taught me the importance of keeping data the same when working through the project.
 
