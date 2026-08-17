@@ -34,5 +34,3 @@ In Module One, I determined that the following course outcomes were met by this 
 Inventory Management App
 
 This is an upgraded version of the Inventory Management application that I developed as part of my CS360 course. I added it to my ePortfolio as an example of how my coding techniques can be improved to enhance code organization and maintainability. I separated the responsibility of accessing the database into an InventoryRepository class and input validation into an InputValidator class. This enhancement achieved my intended course outcomes and demonstrated software engineering principles such as separation of responsibilities and code reusability. It was an important learning experience for me because I learned that good software is not just about making an application function, it is also about making it easier to maintain and update. The biggest challenge I faced was ensuring that the new classes interacted properly with the existing inventory features, so I had to thoroughly test the application.
-
-
