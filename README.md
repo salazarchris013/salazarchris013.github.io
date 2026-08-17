@@ -23,6 +23,8 @@ Inventory Management App
 
 [View original code](https://github.com/salazarchris013/salazarchris013.github.io/tree/main/Algorithms%20and%20Data%20Structures%20-%20Inventory%20Tracker/app-original/src)
 
+[View source code](Algorithms%20and%20Data%20Structures%20-%20Inventory%20Tracker/app-updated/src)
+
 This enhancement involved rethinking the way that the app works with its inventory data. Rather than accessing the database each time the screen was changed, I created a class for each inventory item and stored these in a list during the app's life cycle making it possible to filter inventory logs without repeated database accesses. This met the course outcomes by selecting an appropriate data organization and keeping data retrieval separate from the way the information is displayed on the screen. Being able to filter items, along with instant search, required very little additional work because organizing the inventory this way made those features much easier to implement. One challenge was that every edit had to update both the list and the database, or the app could display information that did not match what was actually saved. Finding and fixing this issue taught me the importance of keeping data the same when working through the project.
 
 # Databases
@@ -30,11 +32,17 @@ Inventory Management App
 
 [View original code](https://github.com/salazarchris013/salazarchris013.github.io/tree/main/Databases%20-%20Inventory%20Tracker/app-original/src)
 
+[View source code](Databases%20-%20Inventory%20Tracker/app-updated/src)
+
 This artifact is an inventory management app that I originally created in CS360 that I chose for Databases category. I chose this artifact because it shows my ability to redesign a database, enhance data organization, and expand an existing application without altering the primary purpose of the application. The main changes are in DatabaseHelper.java, where the database is redesigned with the separation of the inventory data into categories, suppliers, inventory items and transaction tables, including JOIN queries to get related data, and in InventoryImporter.java adding a CSV import feature with sample_inventory.csv to populate the database for testing. I also made some changes in InventoryRepository.java, InventoryItem.java, and database.java to allow the app to add and view the new category and supplier data. These improvements show that I created a general understanding of relational database design, database normalization, foreign keys, and data retrieval.
 
 In Module One, I determined that the following course outcomes were met by this artifact. I was able to design and implement a database solution that enhances an existing software application. The changes made improved functionality, without removing existing features, or reorganizing the data. In this project, I got to know how to change the structure of a database without losing any information, how to make relationships between tables, and how to use JOIN queries to get data in a related and efficient way. A major difficulty was that the larger the inventory, the slower the application, so changes had to be made to the user interface and more testing needed to make the application more responsive. Solving these problems gave me more insight into database design, data integrity and the need to test database changes to ensure that the application would be reliable and would fulfill the project requirements.
 
 # Software Design and Engineering
 Inventory Management App
+
+[View original code](Software%20Design%20and%20Engineering%20-%20Inventory%20Tracker/app-original/src)
+
+[View updated code](Software%20Design%20and%20Engineering%20-%20Inventory%20Tracker/app-updated/src)
 
 This is an upgraded version of the Inventory Management application that I developed as part of my CS360 course. I added it to my ePortfolio as an example of how my coding techniques can be improved to enhance code organization and maintainability. I separated the responsibility of accessing the database into an InventoryRepository class and input validation into an InputValidator class. This enhancement achieved my intended course outcomes and demonstrated software engineering principles such as separation of responsibilities and code reusability. It was an important learning experience for me because I learned that good software is not just about making an application function, it is also about making it easier to maintain and update. The biggest challenge I faced was ensuring that the new classes interacted properly with the existing inventory features, so I had to thoroughly test the application.
