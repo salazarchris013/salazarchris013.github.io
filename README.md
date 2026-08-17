@@ -20,12 +20,15 @@ https://youtu.be/QhCGARdW1TY
 
 # Algorithms and Data Structures
 Inventory Management App
+
 [View original code](https://github.com/salazarchris013/salazarchris013.github.io/tree/main/Algorithms%20and%20Data%20Structures%20-%20Inventory%20Tracker/app-original/src)
 
 This enhancement involved rethinking the way that the app works with its inventory data. Rather than accessing the database each time the screen was changed, I created a class for each inventory item and stored these in a list during the app's life cycle making it possible to filter inventory logs without repeated database accesses. This met the course outcomes by selecting an appropriate data organization and keeping data retrieval separate from the way the information is displayed on the screen. Being able to filter items, along with instant search, required very little additional work because organizing the inventory this way made those features much easier to implement. One challenge was that every edit had to update both the list and the database, or the app could display information that did not match what was actually saved. Finding and fixing this issue taught me the importance of keeping data the same when working through the project.
 
 # Databases
 Inventory Management App
+
+[View original code](https://github.com/salazarchris013/salazarchris013.github.io/tree/main/Databases%20-%20Inventory%20Tracker/app-original/src)
 
 This artifact is an inventory management app that I originally created in CS360 that I chose for Databases category. I chose this artifact because it shows my ability to redesign a database, enhance data organization, and expand an existing application without altering the primary purpose of the application. The main changes are in DatabaseHelper.java, where the database is redesigned with the separation of the inventory data into categories, suppliers, inventory items and transaction tables, including JOIN queries to get related data, and in InventoryImporter.java adding a CSV import feature with sample_inventory.csv to populate the database for testing. I also made some changes in InventoryRepository.java, InventoryItem.java, and database.java to allow the app to add and view the new category and supplier data. These improvements show that I created a general understanding of relational database design, database normalization, foreign keys, and data retrieval.
 
