@@ -1,11 +1,11 @@
 # salazarchris013.github.io
 
-Christopher Salazar ePortfolio
+# Christopher Salazar ePortfolio
 
-Code Review
+# Code Review
 https://youtu.be/QhCGARdW1TY
 
-Self-Assessment
+# Self-Assessment
 I've enjoyed my years learning to code and exploring many different areas of computer science at SNHU. The CS 499 project and milestones gave me the opportunity to bring some of my skills in software engineering, databases, and algorithms together by reviewing and enhancing an Android inventory management app I created in a previous CS 360 course. The development of my ePortfolio also provided me the opportunity to revisit that work, include feedback and make further improvements, instead of treating it as finished work. This process taught me a lot about how to maintain code, how important it is to have reliable data, security and clear communication.
 My coursework has prepared me well to work alongside other developers. I completed the capstone on my own, but I treated my code as though someone else would eventually need to maintain it, building a code review presentation, building on instructor feedback, and commenting on my classes and methods to keep them easy to follow. As part of that process, I recorded a code review, walking through the code files and what I planned to enhance and why, along with written explanations to make it understandable to someone not familiar with the project. My full stack development CS 465 course reinforced this. Building the Travlr Getaways application with Angular, Node.js, Express, MongoDB, and REST APIs taught me how the different components of a larger program work together. Designing it around business and user requirements and then converting those requirements into technical decisions other developers could follow gave me an early introduction to balancing the needs of a business against the needs of its users. 
 I've applied data structures and algorithms across more than one area of computer science. In CS 370, I built a Treasure Hunt Game using deep Q learning in a maze, which taught me how algorithms can learn from experience to make decisions. In this project, I used an in memory list to make searching and sorting inventory faster. Together, these experiences showed me how much an application's behavior and performance depend on structural and algorithmic choices.
